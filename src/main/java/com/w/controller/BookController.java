@@ -21,11 +21,14 @@ public class BookController {
     @Autowired
     private IBookService bookService;
 
+    /**
+     * 新增数据
+     * @param book
+     * @return
+     */
     @PostMapping
     public Result save(@RequestBody Book book){
 
-//        if ("123".equals(book.getName()))
-//            throw new BusinessException(Code.BUSINESS_ERR, "啦啦啦");
 
         boolean flag = bookService.save(book);
 
@@ -33,6 +36,11 @@ public class BookController {
 
     }
 
+    /**
+     * 修改数据
+     * @param book
+     * @return
+     */
     @PutMapping
     public Result update(@RequestBody Book book){
 
@@ -42,6 +50,11 @@ public class BookController {
 
     }
 
+    /**
+     * 删除数据
+     * @param id
+     * @return
+     */
     @DeleteMapping(value = "/{id}")
     public Result deleteById(@PathVariable Integer id){
 
@@ -51,6 +64,11 @@ public class BookController {
 
     }
 
+    /**
+     * 根据id获取数据,用于数据修改数据时回显数据
+     * @param id
+     * @return
+     */
     @GetMapping(value = "/{id}")
     public Result findById(@PathVariable Integer id){
 
@@ -61,25 +79,22 @@ public class BookController {
         return new Result(code, book, message);
     }
 
-    @GetMapping
+    /*@GetMapping
     public Result findAll(){
         List<Book> bookList = bookService.queryAll();
 
         Integer code = bookList != null ? Code.GET_OK : Code.GET_ERR;
         String message = bookList != null ? "" : "数据查询失败，请重试！";
         return new Result(code, bookList, message);
-    }
-
-    /*@GetMapping("/{current}/{pageSize}")
-    public Result getPage(@PathVariable int current, @PathVariable int pageSize){
-        IPage<Book> page = bookService.getPage(current, pageSize);
-
-        Integer code = page != null ? Code.GET_OK : Code.GET_ERR;
-        String message = page != null ? "" : "数据查询失败，请重试！";
-
-        return new Result(code, page, message);
     }*/
 
+    /**
+     * 按条件分页显示数据
+     * @param current
+     * @param pageSize
+     * @param book
+     * @return
+     */
     @GetMapping("/{current}/{pageSize}")
     public Result getPage(@PathVariable int current, @PathVariable int pageSize, Book book){
         IPage<Book> page = bookService.getPage(current, pageSize, book);
