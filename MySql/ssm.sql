@@ -11,7 +11,7 @@
  Target Server Version : 50719
  File Encoding         : 65001
 
- Date: 10/06/2022 08:50:26
+ Date: 12/06/2022 10:33:51
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,7 @@ CREATE TABLE `tbl_book`  (
   `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tbl_book
@@ -45,6 +45,22 @@ INSERT INTO `tbl_book` VALUES (10, '市场营销', '直播就该这么做：主�
 INSERT INTO `tbl_book` VALUES (11, '市场营销', '直播销讲实战一本通', '和秋叶一起学系列网络营销书籍');
 INSERT INTO `tbl_book` VALUES (12, '市场营销', '直播带货：淘宝、天猫直播从新手到高手', '一本教你如何玩转直播的书，10堂课轻松实现带货月入3W+');
 INSERT INTO `tbl_book` VALUES (13, '武侠6', '天龙八部6688', '牛666');
-INSERT INTO `tbl_book` VALUES (41, 'sa', 'sa', 'sa');
+INSERT INTO `tbl_book` VALUES (43, '武侠', '天龙八部22', '6666');
+INSERT INTO `tbl_book` VALUES (44, '武侠', '天龙八部22', '6666');
+
+-- ----------------------------
+-- Table structure for tbl_user
+-- ----------------------------
+DROP TABLE IF EXISTS `tbl_user`;
+CREATE TABLE `tbl_user`  (
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`name`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbl_user
+-- ----------------------------
+INSERT INTO `tbl_user` VALUES ('blue', '1234');
 
 SET FOREIGN_KEY_CHECKS = 1;
