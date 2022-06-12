@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎注册</title>
+    <link href="../css/register.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="form-div">
+    <div id="app">
+        <div class="reg-content">
+            <h1>欢迎注册</h1>
+            <span>已有帐号？</span> <a href="login.html">登录</a>
+        </div>
+        <div id="reg-form">
+
+            <table>
+
+                <tr>
+                    <td>用户名</td>
+                    <td class="inputs">
+                        <input name="name" type="text" id="name" v-model="user.name" @blur="getByName">
+                        <br>
+                        <span id="name_err" class="err_msg" style="display: none">{{message}}</span>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>密码</td>
+                    <td class="inputs">
+                        <input name="password" type="password" id="password" v-model="user.password">
+                        <br>
+                        <!--                    <span id="password_err" class="err_msg" >{{message}}</span>-->
+                    </td>
+                </tr>
+
+
+            </table>
+
+            <div class="buttons">
+                <input value="注 册" type="button" @click="handleRegister" id="reg_btn">
+            </div>
+            <br class="clear">
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/vue.js"></script>
+<script src="../js/axios-0.18.0.js"></script>
+<script src="../plugins/elementui/index.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            user: {
+                name: "",
+                password: ""
+            },
+            message: "",
+        },
+        methods: {
+            //注册方法
+            handleRegister() {
+                axios.post("/user/register", this.user).then((resp) => {
+                    if (resp.data.code == 20011) {
+                        //注册成功，跳转页面
+                        this.$message({
+                            message: resp.data.message + "1s后跳转至登录页面",
+                            type: 'success'
+                        });
+                        setTimeout(this.jump, 1000)
+                    } else {
+                        //注册失败
+                        this.$message.error(resp.data.message);
+                    }
+                })
+            },
+
+            //查询用户名是否存在
+            getByName() {
+                axios.get("/user/getByName/" + this.user.name).then((resp) => {
+                    if (resp.data.code == 20010) {
+                        //用户已存在
+                        this.$message.error(resp.data.message);
+                    }
+                })
+            },
+
+            //页面跳转
+            jump(){
+                window.location.href="/pages/login.html";
+            }
+        }
+
+    })
+</script>
+</html>

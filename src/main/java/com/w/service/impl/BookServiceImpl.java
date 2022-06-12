@@ -24,31 +24,61 @@ public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements IBook
     @Autowired
     private BookDao bookDao;
 
+    /**
+     * 新增图书
+     * @param book
+     * @return
+     */
     @Override
     public boolean save(Book book) {
         return bookDao.insert(book) > 0;
     }
 
+    /**
+     * 修改图书信息
+     * @param book
+     * @return
+     */
     @Override
     public boolean update(Book book) {
         return bookDao.updateById(book) > 0;
     }
 
+    /**
+     * 删除图书
+     * @param id
+     * @return
+     */
     @Override
     public boolean delete(Integer id) {
         return bookDao.deleteById(id) > 0;
     }
 
+    /**
+     * 根据id查询，用于修改时数据回显
+     * @param id
+     * @return
+     */
     @Override
     public Book queryById(Integer id) {
         return bookDao.selectById(id);
     }
 
+    /**
+     * 查询全部 (不使用)
+     * @return
+     */
     @Override
     public List<Book> queryAll() {
         return bookDao.selectList(null);
     }
 
+    /**
+     * 分页查询 (不使用)
+     * @param current
+     * @param pageSize
+     * @return
+     */
     @Override
     public IPage<Book> getPage(Integer current, Integer pageSize) {
         IPage<Book> page = new Page<>(current, pageSize);
@@ -57,6 +87,13 @@ public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements IBook
         return page;
     }
 
+    /**
+     * 按条件进行分页查询
+     * @param current
+     * @param pageSize
+     * @param book
+     * @return
+     */
     @Override
     public IPage<Book> getPage(Integer current, Integer pageSize, Book book) {
         IPage<Book> page = new Page<>(current, pageSize);

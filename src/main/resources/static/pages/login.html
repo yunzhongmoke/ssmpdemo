@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link href="../css/login.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+<div id="loginDiv">
+    <div id="form">
+        <h1 id="loginMsg">LOGIN IN</h1>
+        <p>Username:<input id="name" name="name" type="text" v-model="user.name"></p>
+
+        <p>Password:<input id="password" name="password" type="password" v-model="user.password"></p>
+
+        <div id="subDiv">
+            <input type="button" @click="handleLogin" class="button" value="login up">
+            <input type="reset" class="button" value="reset">&nbsp;&nbsp;&nbsp;
+            <a href="register.html">没有账号？点击注册</a>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/vue.js"></script>
+<script src="../js/axios-0.18.0.js"></script>
+<script src="../plugins/elementui/index.js"></script>
+<script>
+    new Vue({
+        el: "#form",
+        data: {
+            user: {
+                name: "",
+                password: ""
+            }
+        },
+        methods: {
+            handleLogin(){
+                axios.get("/user/login", {
+                    params:  {
+                        name: this.user.name,
+                        password: this.user.password
+                    }
+                }).then((resp) => {
+                    if (resp.data.code == 20041){
+                        //登录成功
+                        //弹出信息
+                        this.$message({
+                            message: resp.data.message,
+                            type: 'success'
+                        });
+                        window.location.href="/pages/books.html"
+                    } else {
+                        //登录失败
+                        //弹出信息
+                        this.$message.error(resp.data.message);
+                    }
+                });
+            }
+        }
+    })
+</script>
+</html>
